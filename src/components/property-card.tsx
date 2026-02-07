@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Bed, Bath, Square, MapPin } from "lucide-react"
+import { Users, Clock, Calendar as CalendarIcon, MapPin } from "lucide-react"
 
 interface Property {
   id: string
@@ -72,16 +72,16 @@ export function PropertyCard({ property }: PropertyCardProps) {
         <CardFooter className="flex justify-between border-t p-4">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
-              <Bed className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm">{property.bedrooms}</span>
+              <Users className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm">{property.bedrooms} чел</span>
             </div>
             <div className="flex items-center gap-1">
-              <Bath className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm">{property.bathrooms}</span>
+              <Clock className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm">{property.squareFeet} мин</span>
             </div>
             <div className="flex items-center gap-1">
-              <Square className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm">{property.squareFeet} м2</span>
+              <CalendarIcon className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm">{property.bathrooms} фев</span>
             </div>
           </div>
           <Badge variant="outline">{property.type}</Badge>

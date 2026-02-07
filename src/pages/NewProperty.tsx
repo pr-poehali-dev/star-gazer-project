@@ -9,19 +9,19 @@ import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Home, ChevronRight, Upload, X } from "lucide-react"
+import { Home, ChevronRight, Upload, X, Calendar } from "lucide-react"
 
 export default function NewPropertyPage() {
   const [images, setImages] = useState<string[]>([])
-  const [amenities, setAmenities] = useState({
+  const [features, setFeatures] = useState({
+    wenicok: false,
+    aromatherapy: false,
+    tea: false,
+    massage: false,
     pool: false,
-    garage: false,
-    garden: false,
-    balcony: false,
-    elevator: false,
-    airConditioning: false,
-    furnished: false,
-    petFriendly: false,
+    hammam: false,
+    sauna: false,
+    food: false,
   })
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,7 @@ export default function NewPropertyPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    alert("Объявление успешно создано!")
+    alert("Событие успешно добавлено!")
   }
 
   return (
@@ -51,91 +51,92 @@ export default function NewPropertyPage() {
         </Link>
         <ChevronRight className="h-4 w-4" />
         <Link to="/properties" className="hover:text-foreground">
-          Объекты
+          Календарь
         </Link>
         <ChevronRight className="h-4 w-4" />
-        <span className="text-foreground">Новое объявление</span>
+        <span className="text-foreground">Добавить событие</span>
       </div>
 
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">Разместить объявление</h1>
-        <p className="text-muted-foreground">Заполните форму ниже, чтобы добавить ваш объект</p>
+        <h1 className="text-3xl font-bold">Добавить банное событие 🔥</h1>
+        <p className="text-muted-foreground">Заполните форму, чтобы ваше мероприятие увидели тысячи гостей</p>
       </div>
 
       <form onSubmit={handleSubmit}>
         <div className="grid gap-8 md:grid-cols-[2fr_1fr]">
           <Card>
             <CardHeader>
-              <CardTitle>Информация об объекте</CardTitle>
-              <CardDescription>Основные характеристики недвижимости</CardDescription>
+              <CardTitle>Информация о событии</CardTitle>
+              <CardDescription>Основные характеристики мероприятия</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="title">Название объявления</Label>
-                <Input id="title" placeholder="например, Современная квартира в центре" required />
+                <Label htmlFor="title">Название события</Label>
+                <Input id="title" placeholder="например, Мужские парения" required />
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="type">Тип недвижимости</Label>
+                  <Label htmlFor="type">Тип события</Label>
                   <Select required>
                     <SelectTrigger id="type">
                       <SelectValue placeholder="Выберите тип" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="house">Дом</SelectItem>
-                      <SelectItem value="apartment">Квартира</SelectItem>
-                      <SelectItem value="condo">Апартаменты</SelectItem>
-                      <SelectItem value="townhouse">Таунхаус</SelectItem>
-                      <SelectItem value="land">Участок</SelectItem>
+                      <SelectItem value="sparcom">Эксклюзив SPARCOM</SelectItem>
+                      <SelectItem value="ritual">Авторский ритуал</SelectItem>
+                      <SelectItem value="party">Банная вечеринка</SelectItem>
+                      <SelectItem value="masterclass">Мастер-класс</SelectItem>
+                      <SelectItem value="workshop">Интенсив</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="status">Статус</Label>
+                  <Label htmlFor="format">Формат</Label>
                   <Select required>
-                    <SelectTrigger id="status">
-                      <SelectValue placeholder="Выберите статус" />
+                    <SelectTrigger id="format">
+                      <SelectValue placeholder="Выберите формат" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="available">Доступно</SelectItem>
-                      <SelectItem value="pending">Бронь</SelectItem>
-                      <SelectItem value="sold">Продано</SelectItem>
+                      <SelectItem value="men">Мужское</SelectItem>
+                      <SelectItem value="women">Дамское</SelectItem>
+                      <SelectItem value="mixed">Смешанное</SelectItem>
+                      <SelectItem value="family">Семейное</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="price">Цена (руб.)</Label>
-                <Input id="price" type="number" min="0" step="100000" required />
+                <Label htmlFor="price">Цена за участие (руб.)</Label>
+                <Input id="price" type="number" min="0" step="100" placeholder="2500" required />
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="bedrooms">Комнат</Label>
-                  <Input id="bedrooms" type="number" min="0" required />
+                  <Label htmlFor="participants">Количество участников</Label>
+                  <Input id="participants" type="number" min="1" placeholder="12" required />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="bathrooms">Санузлов</Label>
-                  <Input id="bathrooms" type="number" min="0" step="1" required />
+                  <Label htmlFor="duration">Длительность (мин)</Label>
+                  <Input id="duration" type="number" min="30" step="15" placeholder="90" required />
                 </div>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="squareFeet">Площадь (м2)</Label>
-                  <Input id="squareFeet" type="number" min="0" required />
+                  <Label htmlFor="date">Дата события</Label>
+                  <Input id="date" type="date" required />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="yearBuilt">Год постройки</Label>
-                  <Input id="yearBuilt" type="number" min="1900" max={new Date().getFullYear()} required />
+                  <Label htmlFor="time">Время начала</Label>
+                  <Input id="time" type="time" required />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="description">Описание</Label>
-                <Textarea id="description" placeholder="Опишите ваш объект..." className="min-h-[150px]" required />
+                <Textarea id="description" placeholder="Опишите событие, программу, мастера..." className="min-h-[150px]" required />
               </div>
             </CardContent>
           </Card>
@@ -143,13 +144,17 @@ export default function NewPropertyPage() {
           <div className="space-y-8">
             <Card>
               <CardHeader>
-                <CardTitle>Расположение</CardTitle>
-                <CardDescription>Где находится ваш объект?</CardDescription>
+                <CardTitle>Место проведения</CardTitle>
+                <CardDescription>Где пройдёт событие?</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="street">Адрес</Label>
-                  <Input id="street" required />
+                  <Label htmlFor="venue">Название площадки</Label>
+                  <Input id="venue" placeholder="Банный клуб SPARCOM" required />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="address">Адрес</Label>
+                  <Input id="address" placeholder="ул. Примерная, 1" required />
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
@@ -157,18 +162,8 @@ export default function NewPropertyPage() {
                     <Input id="city" required />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="state">Район/Область</Label>
-                    <Input id="state" required />
-                  </div>
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="zip">Индекс</Label>
-                    <Input id="zip" required />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="country">Страна</Label>
-                    <Input id="country" defaultValue="Россия" required />
+                    <Label htmlFor="district">Район</Label>
+                    <Input id="district" placeholder="Центральный" />
                   </div>
                 </div>
               </CardContent>
@@ -176,21 +171,21 @@ export default function NewPropertyPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Контактная информация</CardTitle>
-                <CardDescription>Как с вами связаться?</CardDescription>
+                <CardTitle>Организатор / Мастер</CardTitle>
+                <CardDescription>Информация для связи</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="contactName">Контактное лицо</Label>
-                  <Input id="contactName" required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="contactEmail">Email</Label>
-                  <Input id="contactEmail" type="email" required />
+                  <Label htmlFor="masterName">Имя мастера/организатора</Label>
+                  <Input id="masterName" placeholder="Иван Иванов" required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="contactPhone">Телефон</Label>
-                  <Input id="contactPhone" type="tel" required />
+                  <Input id="contactPhone" type="tel" placeholder="+7 (900) 123-45-67" required />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="telegram">Telegram (необязательно)</Label>
+                  <Input id="telegram" placeholder="@username" />
                 </div>
               </CardContent>
             </Card>
@@ -251,19 +246,71 @@ export default function NewPropertyPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Удобства</CardTitle>
-              <CardDescription>Выберите все, что есть в вашем объекте</CardDescription>
+              <CardTitle>Что входит?</CardTitle>
+              <CardDescription>Выберите всё, что включено в событие</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center space-x-2">
                   <Checkbox
-                    id="amenity-pool"
-                    checked={amenities.pool}
-                    onCheckedChange={(checked) => setAmenities({ ...amenities, pool: !!checked })}
+                    id="feature-wenicok"
+                    checked={features.wenicok}
+                    onCheckedChange={(checked) => setFeatures({ ...features, wenicok: !!checked })}
                   />
                   <label
-                    htmlFor="amenity-pool"
+                    htmlFor="feature-wenicok"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Венички
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="feature-aromatherapy"
+                    checked={features.aromatherapy}
+                    onCheckedChange={(checked) => setFeatures({ ...features, aromatherapy: !!checked })}
+                  />
+                  <label
+                    htmlFor="feature-aromatherapy"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Ароматерапия
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="feature-tea"
+                    checked={features.tea}
+                    onCheckedChange={(checked) => setFeatures({ ...features, tea: !!checked })}
+                  />
+                  <label
+                    htmlFor="feature-tea"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Чай/напитки
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="feature-massage"
+                    checked={features.massage}
+                    onCheckedChange={(checked) => setFeatures({ ...features, massage: !!checked })}
+                  />
+                  <label
+                    htmlFor="feature-massage"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Массаж
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="feature-pool"
+                    checked={features.pool}
+                    onCheckedChange={(checked) => setFeatures({ ...features, pool: !!checked })}
+                  />
+                  <label
+                    htmlFor="feature-pool"
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
                     Бассейн
@@ -271,93 +318,41 @@ export default function NewPropertyPage() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Checkbox
-                    id="amenity-garage"
-                    checked={amenities.garage}
-                    onCheckedChange={(checked) => setAmenities({ ...amenities, garage: !!checked })}
+                    id="feature-hammam"
+                    checked={features.hammam}
+                    onCheckedChange={(checked) => setFeatures({ ...features, hammam: !!checked })}
                   />
                   <label
-                    htmlFor="amenity-garage"
+                    htmlFor="feature-hammam"
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
-                    Гараж
+                    Хаммам
                   </label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Checkbox
-                    id="amenity-garden"
-                    checked={amenities.garden}
-                    onCheckedChange={(checked) => setAmenities({ ...amenities, garden: !!checked })}
+                    id="feature-sauna"
+                    checked={features.sauna}
+                    onCheckedChange={(checked) => setFeatures({ ...features, sauna: !!checked })}
                   />
                   <label
-                    htmlFor="amenity-garden"
+                    htmlFor="feature-sauna"
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
-                    Сад
+                    Сауна
                   </label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Checkbox
-                    id="amenity-balcony"
-                    checked={amenities.balcony}
-                    onCheckedChange={(checked) => setAmenities({ ...amenities, balcony: !!checked })}
+                    id="feature-food"
+                    checked={features.food}
+                    onCheckedChange={(checked) => setFeatures({ ...features, food: !!checked })}
                   />
                   <label
-                    htmlFor="amenity-balcony"
+                    htmlFor="feature-food"
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
-                    Балкон
-                  </label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="amenity-elevator"
-                    checked={amenities.elevator}
-                    onCheckedChange={(checked) => setAmenities({ ...amenities, elevator: !!checked })}
-                  />
-                  <label
-                    htmlFor="amenity-elevator"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    Лифт
-                  </label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="amenity-ac"
-                    checked={amenities.airConditioning}
-                    onCheckedChange={(checked) => setAmenities({ ...amenities, airConditioning: !!checked })}
-                  />
-                  <label
-                    htmlFor="amenity-ac"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    Кондиционер
-                  </label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="amenity-furnished"
-                    checked={amenities.furnished}
-                    onCheckedChange={(checked) => setAmenities({ ...amenities, furnished: !!checked })}
-                  />
-                  <label
-                    htmlFor="amenity-furnished"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    С мебелью
-                  </label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="amenity-pet"
-                    checked={amenities.petFriendly}
-                    onCheckedChange={(checked) => setAmenities({ ...amenities, petFriendly: !!checked })}
-                  />
-                  <label
-                    htmlFor="amenity-pet"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    Можно с питомцами
+                    Угощения
                   </label>
                 </div>
               </div>
@@ -369,7 +364,7 @@ export default function NewPropertyPage() {
           <Link to="/properties">
             <Button variant="outline">Отмена</Button>
           </Link>
-          <Button type="submit">Опубликовать</Button>
+          <Button type="submit">Добавить событие</Button>
         </div>
       </form>
     </div>

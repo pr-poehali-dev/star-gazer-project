@@ -2,37 +2,37 @@ import { Link, useParams } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Bed, Bath, Square, Calendar, MapPin, Phone, Mail, Heart, Share2, Home, ChevronRight } from "lucide-react"
+import { Users, Clock, Calendar as CalendarIcon, MapPin, Phone, Mail, Heart, Share2, Home, ChevronRight, Flame } from "lucide-react"
 
 export default function PropertyDetailPage() {
   const { id } = useParams()
 
   const property = {
     id: id,
-    title: "Апартаменты с видом на реку",
-    type: "Апартаменты",
-    address: "Пресненская наб., 8, Москва-Сити",
-    price: 52000000,
-    bedrooms: 3,
-    bathrooms: 2,
-    squareFeet: 145,
-    yearBuilt: 2022,
+    title: "Мужские парения",
+    type: "Эксклюзив SPARCOM",
+    address: "Банный клуб SPARCOM, центр",
+    price: 2500,
+    bedrooms: 12,
+    bathrooms: 3,
+    squareFeet: 90,
+    yearBuilt: 2024,
     status: "Доступно",
     description:
-      "Великолепные апартаменты с панорамным видом на Москву-реку и деловой центр. Панорамное остекление от пола до потолка, кухня премиум-класса с техникой Miele, просторная планировка идеальна для приёма гостей. Мастер-спальня с собственной ванной комнатой, гардеробной и выходом на террасу. В доме: 2 машиноместа, бассейн, фитнес-центр, консьерж-сервис 24/7.",
+      "Легендарное закрытое мероприятие от банного клуба SPARCOM. Настоящий мужской ритуал с традиционными техниками парения, авторскими веничными сеансами, чайной церемонией. Мастер — пармейстер с 10-летним стажем. В программе: разогрев в русской бане, сеанс парения 3 захода, охлаждение в бассейне, травяной чай с угощениями. Атмосфера братства и силы.",
     features: [
-      "Вид на реку",
-      "Панорамное остекление",
-      "Кухня премиум-класса",
-      "Собственная терраса",
-      "Гардеробная",
-      "Паркет из дуба",
-      "Центральное кондиционирование",
-      "Прачечная в квартире",
-      "Охрана 24/7",
-      "Бассейн",
-      "Фитнес-центр",
-      "Консьерж-сервис",
+      "Русская баня",
+      "Авторские веники",
+      "Пармейстер с опытом 10+ лет",
+      "Бассейн с холодной водой",
+      "Чайная церемония",
+      "Угощения",
+      "Мужской формат",
+      "Малая группа (12 чел)",
+      "Личный подход",
+      "Парковка",
+      "Раздевалки",
+      "Душевые",
     ],
     images: [
       "/placeholder.svg?height=600&width=800",
@@ -42,9 +42,9 @@ export default function PropertyDetailPage() {
       "/placeholder.svg?height=600&width=800",
     ],
     agent: {
-      name: "Анна Ковалёва",
-      phone: "+7 (495) 123-45-67",
-      email: "anna@novodom.ru",
+      name: "Иван Петров",
+      phone: "+7 (900) 123-45-67",
+      email: "events@sparcom.club",
       image: "/placeholder.svg?height=200&width=200",
     },
   }
@@ -66,7 +66,7 @@ export default function PropertyDetailPage() {
         </Link>
         <ChevronRight className="h-4 w-4" />
         <Link to="/properties" className="hover:text-foreground">
-          Объекты
+          Календарь
         </Link>
         <ChevronRight className="h-4 w-4" />
         <span className="text-foreground">{property.title}</span>
@@ -93,30 +93,30 @@ export default function PropertyDetailPage() {
           </div>
           <div className="mb-6 flex flex-wrap items-center gap-4 text-muted-foreground">
             <div className="flex items-center gap-1">
-              <Bed className="h-5 w-5" />
-              <span>{property.bedrooms} комнаты</span>
+              <Users className="h-5 w-5" />
+              <span>{property.bedrooms} участников</span>
             </div>
             <div className="flex items-center gap-1">
-              <Bath className="h-5 w-5" />
-              <span>{property.bathrooms} санузла</span>
+              <Clock className="h-5 w-5" />
+              <span>{property.squareFeet} минут</span>
             </div>
             <div className="flex items-center gap-1">
-              <Square className="h-5 w-5" />
-              <span>{property.squareFeet} м2</span>
+              <CalendarIcon className="h-5 w-5" />
+              <span>{property.bathrooms} февраля 2024</span>
             </div>
             <div className="flex items-center gap-1">
-              <Calendar className="h-5 w-5" />
-              <span>Построен в {property.yearBuilt}</span>
+              <Flame className="h-5 w-5" />
+              <span>{property.type}</span>
             </div>
           </div>
         </div>
         <div className="flex flex-col items-end justify-center">
           <div className="text-3xl font-bold">{formatPrice(property.price)}</div>
           <div className="mt-4 flex gap-2">
-            <Button size="lg">Связаться с агентом</Button>
+            <Button size="lg">Забронировать место</Button>
             <Button size="lg" variant="outline">
               <Heart className="mr-2 h-4 w-4" />
-              Сохранить
+              В избранное
             </Button>
             <Button size="icon" variant="outline">
               <Share2 className="h-4 w-4" />
@@ -149,15 +149,15 @@ export default function PropertyDetailPage() {
           <Tabs defaultValue="description">
             <TabsList className="mb-4 grid w-full grid-cols-3">
               <TabsTrigger value="description">Описание</TabsTrigger>
-              <TabsTrigger value="features">Особенности</TabsTrigger>
-              <TabsTrigger value="location">Расположение</TabsTrigger>
+              <TabsTrigger value="features">Что входит</TabsTrigger>
+              <TabsTrigger value="location">Место</TabsTrigger>
             </TabsList>
             <TabsContent value="description" className="space-y-4">
-              <h2 className="text-2xl font-semibold">Описание объекта</h2>
+              <h2 className="text-2xl font-semibold">О событии</h2>
               <p className="leading-relaxed">{property.description}</p>
             </TabsContent>
             <TabsContent value="features">
-              <h2 className="mb-4 text-2xl font-semibold">Особенности объекта</h2>
+              <h2 className="mb-4 text-2xl font-semibold">Что входит в программу</h2>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {property.features.map((feature, index) => (
                   <div key={index} className="flex items-center gap-2">
@@ -168,10 +168,19 @@ export default function PropertyDetailPage() {
               </div>
             </TabsContent>
             <TabsContent value="location">
-              <h2 className="mb-4 text-2xl font-semibold">Расположение</h2>
-              <div className="aspect-video overflow-hidden rounded-lg bg-muted">
-                <div className="flex h-full items-center justify-center">
-                  <p className="text-muted-foreground">Здесь будет отображаться карта</p>
+              <h2 className="mb-4 text-2xl font-semibold">Место проведения</h2>
+              <div className="space-y-4">
+                <div className="flex items-start gap-2">
+                  <MapPin className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div>
+                    <p className="font-semibold">{property.address}</p>
+                    <p className="text-sm text-muted-foreground">Как добраться: 5 мин пешком от м. Центральная</p>
+                  </div>
+                </div>
+                <div className="aspect-video overflow-hidden rounded-lg bg-muted">
+                  <div className="flex h-full items-center justify-center">
+                    <p className="text-muted-foreground">Здесь будет отображаться карта</p>
+                  </div>
                 </div>
               </div>
             </TabsContent>
@@ -189,7 +198,7 @@ export default function PropertyDetailPage() {
             </div>
             <div>
               <h3 className="font-semibold">{property.agent.name}</h3>
-              <p className="text-sm text-muted-foreground">Агент по недвижимости</p>
+              <p className="text-sm text-muted-foreground">Организатор / Мастер</p>
             </div>
           </div>
           <div className="mb-6 space-y-2">
@@ -241,10 +250,10 @@ export default function PropertyDetailPage() {
                 id="message"
                 rows={4}
                 className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                defaultValue={`Меня интересует объект "${property.title}" по адресу ${property.address}. Прошу связаться со мной для получения дополнительной информации.`}
+                defaultValue={`Здравствуйте! Хочу забронировать место на "${property.title}" ${property.bathrooms} февраля. Свяжитесь со мной, пожалуйста.`}
               ></textarea>
             </div>
-            <Button className="w-full">Отправить сообщение</Button>
+            <Button className="w-full">Забронировать место</Button>
           </div>
         </div>
       </div>

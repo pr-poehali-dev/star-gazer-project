@@ -8,32 +8,26 @@ import { Label } from "@/components/ui/label"
 import { Filter, X } from "lucide-react"
 
 export function SearchFilters() {
-  const [priceRange, setPriceRange] = useState([5000000, 50000000])
-  const [bedroomsRange, setBedroomsRange] = useState([1, 5])
-  const [bathroomsRange, setBathroomsRange] = useState([1, 4])
-  const [squareFootageRange, setSquareFootageRange] = useState([30, 300])
-  const [yearBuiltRange, setYearBuiltRange] = useState([1990, 2024])
-  const [propertyTypes, setPropertyTypes] = useState({
-    house: false,
-    apartment: false,
-    condo: false,
-    townhouse: false,
-    land: false,
+  const [priceRange, setPriceRange] = useState([1000, 5000])
+  const [participantsRange, setParticipantsRange] = useState([5, 30])
+  const [durationRange, setDurationRange] = useState([60, 240])
+  const [eventTypes, setEventTypes] = useState({
+    sparcom: false,
+    ritual: false,
+    party: false,
+    masterclass: false,
+    workshop: false,
   })
-  const [amenities, setAmenities] = useState({
-    pool: false,
-    garage: false,
-    garden: false,
-    balcony: false,
-    elevator: false,
-    airConditioning: false,
-    furnished: false,
-    petFriendly: false,
+  const [formats, setFormats] = useState({
+    men: false,
+    women: false,
+    mixed: false,
+    family: false,
   })
   const [status, setStatus] = useState({
     available: true,
-    pending: false,
-    sold: false,
+    limited: false,
+    soldout: false,
   })
 
   const formatPrice = (price: number) => {
@@ -45,32 +39,26 @@ export function SearchFilters() {
   }
 
   const handleReset = () => {
-    setPriceRange([5000000, 50000000])
-    setBedroomsRange([1, 5])
-    setBathroomsRange([1, 4])
-    setSquareFootageRange([30, 300])
-    setYearBuiltRange([1990, 2024])
-    setPropertyTypes({
-      house: false,
-      apartment: false,
-      condo: false,
-      townhouse: false,
-      land: false,
+    setPriceRange([1000, 5000])
+    setParticipantsRange([5, 30])
+    setDurationRange([60, 240])
+    setEventTypes({
+      sparcom: false,
+      ritual: false,
+      party: false,
+      masterclass: false,
+      workshop: false,
     })
-    setAmenities({
-      pool: false,
-      garage: false,
-      garden: false,
-      balcony: false,
-      elevator: false,
-      airConditioning: false,
-      furnished: false,
-      petFriendly: false,
+    setFormats({
+      men: false,
+      women: false,
+      mixed: false,
+      family: false,
     })
     setStatus({
       available: true,
-      pending: false,
-      sold: false,
+      limited: false,
+      soldout: false,
     })
   }
 
@@ -87,12 +75,12 @@ export function SearchFilters() {
         </Button>
       </div>
 
-      <Accordion type="multiple" defaultValue={["price", "bedrooms", "propertyType", "status"]}>
+      <Accordion type="multiple" defaultValue={["price", "eventType", "format", "status"]}>
         <AccordionItem value="price">
           <AccordionTrigger>Диапазон цен</AccordionTrigger>
           <AccordionContent>
             <div className="space-y-4">
-              <Slider value={priceRange} min={0} max={200000000} step={1000000} onValueChange={setPriceRange} />
+              <Slider value={priceRange} min={0} max={10000} step={100} onValueChange={setPriceRange} />
               <div className="flex items-center justify-between">
                 <div className="w-[120px]">
                   <Label htmlFor="price-min">Мин. цена</Label>
@@ -107,261 +95,171 @@ export function SearchFilters() {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="bedrooms">
-          <AccordionTrigger>Комнат</AccordionTrigger>
+        <AccordionItem value="participants">
+          <AccordionTrigger>Количество участников</AccordionTrigger>
           <AccordionContent>
             <div className="space-y-4">
-              <Slider value={bedroomsRange} min={0} max={10} step={1} onValueChange={setBedroomsRange} />
+              <Slider value={participantsRange} min={1} max={50} step={1} onValueChange={setParticipantsRange} />
               <div className="flex items-center justify-between">
                 <div className="w-[120px]">
-                  <Label htmlFor="bedrooms-min">Мин. комнат</Label>
-                  <Input id="bedrooms-min" type="number" value={bedroomsRange[0]} readOnly />
+                  <Label htmlFor="participants-min">Мин.</Label>
+                  <Input id="participants-min" type="number" value={participantsRange[0]} readOnly />
                 </div>
                 <div className="w-[120px]">
-                  <Label htmlFor="bedrooms-max">Макс. комнат</Label>
-                  <Input id="bedrooms-max" type="number" value={bedroomsRange[1]} readOnly />
+                  <Label htmlFor="participants-max">Макс.</Label>
+                  <Input id="participants-max" type="number" value={participantsRange[1]} readOnly />
                 </div>
               </div>
             </div>
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="bathrooms">
-          <AccordionTrigger>Санузлов</AccordionTrigger>
+        <AccordionItem value="duration">
+          <AccordionTrigger>Длительность (мин)</AccordionTrigger>
           <AccordionContent>
             <div className="space-y-4">
-              <Slider value={bathroomsRange} min={0} max={10} step={1} onValueChange={setBathroomsRange} />
+              <Slider value={durationRange} min={30} max={300} step={15} onValueChange={setDurationRange} />
               <div className="flex items-center justify-between">
                 <div className="w-[120px]">
-                  <Label htmlFor="bathrooms-min">Мин.</Label>
-                  <Input id="bathrooms-min" type="number" value={bathroomsRange[0]} readOnly />
+                  <Label htmlFor="duration-min">Мин. мин</Label>
+                  <Input id="duration-min" type="number" value={durationRange[0]} readOnly />
                 </div>
                 <div className="w-[120px]">
-                  <Label htmlFor="bathrooms-max">Макс.</Label>
-                  <Input id="bathrooms-max" type="number" value={bathroomsRange[1]} readOnly />
+                  <Label htmlFor="duration-max">Макс. мин</Label>
+                  <Input id="duration-max" type="number" value={durationRange[1]} readOnly />
                 </div>
               </div>
             </div>
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="squareFootage">
-          <AccordionTrigger>Площадь (м2)</AccordionTrigger>
+        <AccordionItem value="eventType">
+          <AccordionTrigger>Тип события</AccordionTrigger>
           <AccordionContent>
-            <div className="space-y-4">
-              <Slider value={squareFootageRange} min={0} max={500} step={10} onValueChange={setSquareFootageRange} />
-              <div className="flex items-center justify-between">
-                <div className="w-[120px]">
-                  <Label htmlFor="sqft-min">Мин. м2</Label>
-                  <Input id="sqft-min" type="number" value={squareFootageRange[0]} readOnly />
-                </div>
-                <div className="w-[120px]">
-                  <Label htmlFor="sqft-max">Макс. м2</Label>
-                  <Input id="sqft-max" type="number" value={squareFootageRange[1]} readOnly />
-                </div>
+            <div className="grid grid-cols-1 gap-4">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="type-sparcom"
+                  checked={eventTypes.sparcom}
+                  onCheckedChange={(checked) => setEventTypes({ ...eventTypes, sparcom: !!checked })}
+                />
+                <label
+                  htmlFor="type-sparcom"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Эксклюзив SPARCOM
+                </label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="type-ritual"
+                  checked={eventTypes.ritual}
+                  onCheckedChange={(checked) => setEventTypes({ ...eventTypes, ritual: !!checked })}
+                />
+                <label
+                  htmlFor="type-ritual"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Авторский ритуал
+                </label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="type-party"
+                  checked={eventTypes.party}
+                  onCheckedChange={(checked) => setEventTypes({ ...eventTypes, party: !!checked })}
+                />
+                <label
+                  htmlFor="type-party"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Банная вечеринка
+                </label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="type-masterclass"
+                  checked={eventTypes.masterclass}
+                  onCheckedChange={(checked) => setEventTypes({ ...eventTypes, masterclass: !!checked })}
+                />
+                <label
+                  htmlFor="type-masterclass"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Мастер-класс
+                </label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="type-workshop"
+                  checked={eventTypes.workshop}
+                  onCheckedChange={(checked) => setEventTypes({ ...eventTypes, workshop: !!checked })}
+                />
+                <label
+                  htmlFor="type-workshop"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Интенсив
+                </label>
               </div>
             </div>
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="yearBuilt">
-          <AccordionTrigger>Год постройки</AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-4">
-              <Slider value={yearBuiltRange} min={1950} max={2024} step={1} onValueChange={setYearBuiltRange} />
-              <div className="flex items-center justify-between">
-                <div className="w-[120px]">
-                  <Label htmlFor="year-min">От года</Label>
-                  <Input id="year-min" type="number" value={yearBuiltRange[0]} readOnly />
-                </div>
-                <div className="w-[120px]">
-                  <Label htmlFor="year-max">До года</Label>
-                  <Input id="year-max" type="number" value={yearBuiltRange[1]} readOnly />
-                </div>
-              </div>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="propertyType">
-          <AccordionTrigger>Тип недвижимости</AccordionTrigger>
+        <AccordionItem value="format">
+          <AccordionTrigger>Формат</AccordionTrigger>
           <AccordionContent>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="type-house"
-                  checked={propertyTypes.house}
-                  onCheckedChange={(checked) => setPropertyTypes({ ...propertyTypes, house: !!checked })}
+                  id="format-men"
+                  checked={formats.men}
+                  onCheckedChange={(checked) => setFormats({ ...formats, men: !!checked })}
                 />
                 <label
-                  htmlFor="type-house"
+                  htmlFor="format-men"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Дом
+                  Мужское
                 </label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="type-apartment"
-                  checked={propertyTypes.apartment}
-                  onCheckedChange={(checked) => setPropertyTypes({ ...propertyTypes, apartment: !!checked })}
+                  id="format-women"
+                  checked={formats.women}
+                  onCheckedChange={(checked) => setFormats({ ...formats, women: !!checked })}
                 />
                 <label
-                  htmlFor="type-apartment"
+                  htmlFor="format-women"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Квартира
+                  Дамское
                 </label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="type-condo"
-                  checked={propertyTypes.condo}
-                  onCheckedChange={(checked) => setPropertyTypes({ ...propertyTypes, condo: !!checked })}
+                  id="format-mixed"
+                  checked={formats.mixed}
+                  onCheckedChange={(checked) => setFormats({ ...formats, mixed: !!checked })}
                 />
                 <label
-                  htmlFor="type-condo"
+                  htmlFor="format-mixed"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Апартаменты
+                  Смешанное
                 </label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="type-townhouse"
-                  checked={propertyTypes.townhouse}
-                  onCheckedChange={(checked) => setPropertyTypes({ ...propertyTypes, townhouse: !!checked })}
+                  id="format-family"
+                  checked={formats.family}
+                  onCheckedChange={(checked) => setFormats({ ...formats, family: !!checked })}
                 />
                 <label
-                  htmlFor="type-townhouse"
+                  htmlFor="format-family"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Таунхаус
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="type-land"
-                  checked={propertyTypes.land}
-                  onCheckedChange={(checked) => setPropertyTypes({ ...propertyTypes, land: !!checked })}
-                />
-                <label
-                  htmlFor="type-land"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Участок
-                </label>
-              </div>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="amenities">
-          <AccordionTrigger>Удобства</AccordionTrigger>
-          <AccordionContent>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="amenity-pool"
-                  checked={amenities.pool}
-                  onCheckedChange={(checked) => setAmenities({ ...amenities, pool: !!checked })}
-                />
-                <label
-                  htmlFor="amenity-pool"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Бассейн
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="amenity-garage"
-                  checked={amenities.garage}
-                  onCheckedChange={(checked) => setAmenities({ ...amenities, garage: !!checked })}
-                />
-                <label
-                  htmlFor="amenity-garage"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Гараж
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="amenity-garden"
-                  checked={amenities.garden}
-                  onCheckedChange={(checked) => setAmenities({ ...amenities, garden: !!checked })}
-                />
-                <label
-                  htmlFor="amenity-garden"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Сад
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="amenity-balcony"
-                  checked={amenities.balcony}
-                  onCheckedChange={(checked) => setAmenities({ ...amenities, balcony: !!checked })}
-                />
-                <label
-                  htmlFor="amenity-balcony"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Балкон
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="amenity-elevator"
-                  checked={amenities.elevator}
-                  onCheckedChange={(checked) => setAmenities({ ...amenities, elevator: !!checked })}
-                />
-                <label
-                  htmlFor="amenity-elevator"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Лифт
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="amenity-ac"
-                  checked={amenities.airConditioning}
-                  onCheckedChange={(checked) => setAmenities({ ...amenities, airConditioning: !!checked })}
-                />
-                <label
-                  htmlFor="amenity-ac"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Кондиционер
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="amenity-furnished"
-                  checked={amenities.furnished}
-                  onCheckedChange={(checked) => setAmenities({ ...amenities, furnished: !!checked })}
-                />
-                <label
-                  htmlFor="amenity-furnished"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  С мебелью
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="amenity-pet"
-                  checked={amenities.petFriendly}
-                  onCheckedChange={(checked) => setAmenities({ ...amenities, petFriendly: !!checked })}
-                />
-                <label
-                  htmlFor="amenity-pet"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Можно с питомцами
+                  Семейное
                 </label>
               </div>
             </div>
@@ -371,7 +269,7 @@ export function SearchFilters() {
         <AccordionItem value="status">
           <AccordionTrigger>Статус</AccordionTrigger>
           <AccordionContent>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="status-available"
@@ -387,28 +285,28 @@ export function SearchFilters() {
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="status-pending"
-                  checked={status.pending}
-                  onCheckedChange={(checked) => setStatus({ ...status, pending: !!checked })}
+                  id="status-limited"
+                  checked={status.limited}
+                  onCheckedChange={(checked) => setStatus({ ...status, limited: !!checked })}
                 />
                 <label
-                  htmlFor="status-pending"
+                  htmlFor="status-limited"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Бронь
+                  Осталось мало мест
                 </label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="status-sold"
-                  checked={status.sold}
-                  onCheckedChange={(checked) => setStatus({ ...status, sold: !!checked })}
+                  id="status-soldout"
+                  checked={status.soldout}
+                  onCheckedChange={(checked) => setStatus({ ...status, soldout: !!checked })}
                 />
                 <label
-                  htmlFor="status-sold"
+                  htmlFor="status-soldout"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Продано
+                  Мест нет
                 </label>
               </div>
             </div>
